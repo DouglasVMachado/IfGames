@@ -2,6 +2,8 @@ package dev.games.IfGames.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_Category")
 public class CategoryModel {
@@ -10,5 +12,8 @@ public class CategoryModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String category;
+
+    @OneToMany(mappedBy = "category")
+    private List<GamesModel> games;
 
 }

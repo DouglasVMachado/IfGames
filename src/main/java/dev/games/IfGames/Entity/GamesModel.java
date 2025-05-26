@@ -13,6 +13,11 @@ public class GamesModel {
     private int lançamento;
     private String name;
     private Long preco;
+    private String dificuldade;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryModel category;
 
     public GamesModel() {
     }
