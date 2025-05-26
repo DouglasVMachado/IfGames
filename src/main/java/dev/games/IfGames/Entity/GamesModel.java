@@ -2,9 +2,15 @@ package dev.games.IfGames.Entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Games")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GamesModel {
 
     @Id
@@ -19,45 +25,5 @@ public class GamesModel {
     @JoinColumn(name = "category_id")
     private CategoryModel category;
 
-    public GamesModel() {
     }
 
-    public GamesModel(Long id, String name, int lançamento, Long preco) {
-        this.id = id;
-        this.name = name;
-        this.lançamento = lançamento;
-        this.preco = preco;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getLançamento() {
-        return lançamento;
-    }
-
-    public void setLançamento(int lançamento) {
-        this.lançamento = lançamento;
-    }
-
-    public Long getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Long preco) {
-        this.preco = preco;
-    }
-}
