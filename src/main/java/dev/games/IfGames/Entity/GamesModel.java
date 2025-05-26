@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Games")
-public class GamesEntity {
+public class GamesModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +14,10 @@ public class GamesEntity {
     private String name;
     private Long preco;
 
-    public GamesEntity() {
+    public GamesModel() {
     }
 
-    public GamesEntity(Long id, String name, int lançamento, Long preco) {
+    public GamesModel(Long id, String name, int lançamento, Long preco) {
         this.id = id;
         this.name = name;
         this.lançamento = lançamento;
