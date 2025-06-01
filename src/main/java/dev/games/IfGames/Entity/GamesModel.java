@@ -19,6 +19,7 @@ public class GamesModel {
     private int lançamento;
     private String name;
     private Long preco;
+    private String imgUrl;
     private String dificuldade;
 
     @ManyToOne
