@@ -1,5 +1,6 @@
 package dev.games.IfGames.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class CategoryModel {
     private String category;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<GamesModel> games;
 
 }
