@@ -36,9 +36,9 @@ public class CategoryController {
         return "Atualizar um categoria";
     }
 
-    @DeleteMapping("/delete")
-    public String deleteCategory(){
-        return "Deletar o categoria";
+    @DeleteMapping("/delete/{id}")
+    public void deleteCategory(@PathVariable Long id){
+        categoryService.deleteCategory(id);
     }
 
 
