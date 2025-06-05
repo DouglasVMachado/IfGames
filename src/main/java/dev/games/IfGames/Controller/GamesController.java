@@ -36,9 +36,9 @@ public class GamesController {
         return "atualizar algum jogo";
     }
 
-    @DeleteMapping("/Delete")
-    public String DeleteGame(){
-        return "Deletar um jogo";
+    @DeleteMapping("/Delete/{id}")
+    public void DeleteGame(@PathVariable Long id){
+        gamesService.deleteGame(id);
     }
 
 }
