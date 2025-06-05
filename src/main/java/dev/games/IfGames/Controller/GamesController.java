@@ -27,8 +27,8 @@ public class GamesController {
     }
 
     @PostMapping("/create")
-    public String insertGame(){
-        return "Inserir o jogo";
+    public GamesModel insertGame(@RequestBody GamesModel games){
+        return gamesService.insertGames(games);
     }
 
     @PutMapping("/update")

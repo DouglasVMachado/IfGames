@@ -25,4 +25,8 @@ public class GamesService {
         return gameById.orElse(null);
     }
 
+    public GamesModel insertGames(GamesModel games){
+        return gamesRepository.save(games);
+    }
+
 }
