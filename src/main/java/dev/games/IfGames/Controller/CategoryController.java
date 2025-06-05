@@ -1,34 +1,44 @@
 package dev.games.IfGames.Controller;
 
+import dev.games.IfGames.Entity.CategoryModel;
+import dev.games.IfGames.Service.CategoryService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
+
+    private CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @PostMapping("/create")
     public String createCategory(){
         return "criar categoria";
     }
 
-    @GetMapping("/search")
-    public String searchGame(){
-        return "Procurar algum jogo";
+    @GetMapping("/search/{id}")
+    public CategoryModel searchCategory(@PathVariable Long id){
+        return categoryService.searchCategory(id);
     }
 
     @GetMapping("/list")
-    public String listAllGames(){
-        return "Listar todos os jogos";
+    public List<CategoryModel> listAllCategory(){
+        return categoryService.listAllCategory();
     }
 
     @PutMapping("/update")
-    public String updateGame(){
-        return "Atualizar um jogo";
+    public String updateCategory(){
+        return "Atualizar um categoria";
     }
 
     @DeleteMapping("/delete")
-    public String deleteGame(){
-        return "Deletar o jogo";
+    public String deleteCategory(){
+        return "Deletar o categoria";
     }
 
 

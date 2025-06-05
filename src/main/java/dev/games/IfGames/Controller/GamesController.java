@@ -12,9 +12,13 @@ public class GamesController {
 
     private GamesService gamesService;
 
-    @GetMapping("/search")
-    public String searchById(){
-        return "buscando jogos por id";
+    public GamesController(GamesService gamesService) {
+        this.gamesService = gamesService;
+    }
+
+    @GetMapping("/search/{id}")
+    public GamesModel searchById(@PathVariable Long id){
+        return gamesService.searchById(id);
     }
 
     @GetMapping("/list")
