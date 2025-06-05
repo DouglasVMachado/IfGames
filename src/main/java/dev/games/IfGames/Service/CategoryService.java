@@ -25,4 +25,8 @@ public class CategoryService {
         return categoryModel.orElse(null);
     }
 
+    public CategoryModel createCategory(CategoryModel category){
+        return categoryRepository.save(category);
+    }
+
 }

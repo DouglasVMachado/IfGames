@@ -17,8 +17,8 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String createCategory(){
-        return "criar categoria";
+    public CategoryModel createCategory(@RequestBody CategoryModel category){
+        return categoryService.createCategory(category);
     }
 
     @GetMapping("/search/{id}")
