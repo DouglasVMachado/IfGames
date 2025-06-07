@@ -1,6 +1,8 @@
 package dev.games.IfGames.Service;
 
+import dev.games.IfGames.DTO.CategoryDTO;
 import dev.games.IfGames.Entity.CategoryModel;
+import dev.games.IfGames.Mapper.CategoryMapper;
 import dev.games.IfGames.Repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.Optional;
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
+    private CategoryMapper categoryMapper;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
     public List<CategoryModel> listAllCategory(){
@@ -25,8 +29,10 @@ public class CategoryService {
         return categoryModel.orElse(null);
     }
 
-    public CategoryModel createCategory(CategoryModel category){
-        return categoryRepository.save(category);
+    public CategoryDTO createCategory(CategoryDTO categoryDTO){
+        CategoryModel category = categoryMapper.map(categoryDTO);
+        category = categoryRepository.save(category);
+        return categoryMapper.map(category);
     }
 
     public void deleteCategory(Long id){

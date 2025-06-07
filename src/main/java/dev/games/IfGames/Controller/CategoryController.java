@@ -1,5 +1,6 @@
 package dev.games.IfGames.Controller;
 
+import dev.games.IfGames.DTO.CategoryDTO;
 import dev.games.IfGames.Entity.CategoryModel;
 import dev.games.IfGames.Service.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public CategoryModel createCategory(@RequestBody CategoryModel category){
+    public CategoryDTO createCategory(@RequestBody CategoryDTO category){
         return categoryService.createCategory(category);
     }
 

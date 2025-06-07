@@ -1,5 +1,6 @@
 package dev.games.IfGames.Controller;
 
+import dev.games.IfGames.DTO.GamesDTO;
 import dev.games.IfGames.Entity.GamesModel;
 import dev.games.IfGames.Service.GamesService;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class GamesController {
     }
 
     @PostMapping("/create")
-    public GamesModel insertGame(@RequestBody GamesModel games){
+    public GamesDTO insertGame(@RequestBody GamesDTO games){
         return gamesService.insertGames(games);
     }
 

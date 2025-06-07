@@ -1,6 +1,8 @@
 package dev.games.IfGames.Service;
 
+import dev.games.IfGames.DTO.GamesDTO;
 import dev.games.IfGames.Entity.GamesModel;
+import dev.games.IfGames.Mapper.GamesMapper;
 import dev.games.IfGames.Repository.GamesRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.Optional;
 public class GamesService {
 
     private GamesRepository gamesRepository;
+    private GamesMapper gamesMapper;
 
-    public GamesService(GamesRepository gamesRepository) {
+    public GamesService(GamesRepository gamesRepository, GamesMapper gamesMapper) {
         this.gamesRepository = gamesRepository;
+        this.gamesMapper = gamesMapper;
     }
 
     public List<GamesModel> listAllGames(){
@@ -25,8 +29,10 @@ public class GamesService {
         return gameById.orElse(null);
     }
 
-    public GamesModel insertGames(GamesModel games){
-        return gamesRepository.save(games);
+    public GamesDTO insertGames(GamesDTO gamesDTO){
+        GamesModel games = gamesMapper.map(gamesDTO);
+        games = gamesRepository.save(games);
+        return gamesMapper.map(games);
     }
 
     public void deleteGame(Long id){
