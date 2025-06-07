@@ -31,9 +31,9 @@ public class CategoryController {
         return categoryService.listAllCategory();
     }
 
-    @PutMapping("/update")
-    public String updateCategory(){
-        return "Atualizar um categoria";
+    @PutMapping("/update/{id}")
+    public CategoryModel updateCategory(@PathVariable Long id, @RequestBody CategoryModel category){
+        return categoryService.updateCategory(id, category);
     }
 
     @DeleteMapping("/delete/{id}")
