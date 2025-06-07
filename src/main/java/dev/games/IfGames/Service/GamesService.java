@@ -33,4 +33,12 @@ public class GamesService {
         gamesRepository.deleteById(id);
     }
 
+    public GamesModel updateGames(Long id, GamesModel games){
+        if(gamesRepository.existsById(id)){
+            games.setId(id);
+            return gamesRepository.save(games);
+        }
+        return null;
+    }
+
 }

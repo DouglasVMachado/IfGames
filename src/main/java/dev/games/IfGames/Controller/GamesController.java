@@ -31,9 +31,9 @@ public class GamesController {
         return gamesService.insertGames(games);
     }
 
-    @PutMapping("/update")
-    public String updateGame(){
-        return "atualizar algum jogo";
+    @PutMapping("/update/{id}")
+    public GamesModel updateGame(@PathVariable Long id, @RequestBody GamesModel games){
+        return gamesService.updateGames(id, games);
     }
 
     @DeleteMapping("/delete/{id}")
