@@ -1,5 +1,6 @@
 package dev.games.IfGames.Controller;
 
+import dev.games.IfGames.DTO.CategoryDTO;
 import dev.games.IfGames.Entity.CategoryModel;
 import dev.games.IfGames.Service.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +18,22 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public CategoryModel createCategory(@RequestBody CategoryModel category){
+    public CategoryDTO createCategory(@RequestBody CategoryDTO category){
         return categoryService.createCategory(category);
     }
 
     @GetMapping("/search/{id}")
-    public CategoryModel searchCategory(@PathVariable Long id){
+    public CategoryDTO searchCategory(@PathVariable Long id){
         return categoryService.searchCategory(id);
     }
 
     @GetMapping("/list")
-    public List<CategoryModel> listAllCategory(){
+    public List<CategoryDTO> listAllCategory(){
         return categoryService.listAllCategory();
     }
 
     @PutMapping("/update/{id}")
-    public CategoryModel updateCategory(@PathVariable Long id, @RequestBody CategoryModel category){
+    public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody CategoryDTO category){
         return categoryService.updateCategory(id, category);
     }
 

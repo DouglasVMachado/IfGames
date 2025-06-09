@@ -1,42 +1,53 @@
 package dev.games.IfGames.Service;
 
+import dev.games.IfGames.DTO.CategoryDTO;
 import dev.games.IfGames.Entity.CategoryModel;
+import dev.games.IfGames.Mapper.CategoryMapper;
 import dev.games.IfGames.Repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
+    private CategoryMapper categoryMapper;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
-    public List<CategoryModel> listAllCategory(){
-        return categoryRepository.findAll();
+    public List<CategoryDTO> listAllCategory(){
+        List<CategoryModel> categoryModel = categoryRepository.findAll();
+        return categoryModel.stream().map(categoryMapper::map).collect(Collectors.toList());
     }
 
-    public CategoryModel searchCategory(Long id){
+    public CategoryDTO searchCategory(Long id){
         Optional<CategoryModel> categoryModel = categoryRepository.findById(id);
-        return categoryModel.orElse(null);
+        return categoryModel.map(categoryMapper::map).orElse(null);
     }
 
-    public CategoryModel createCategory(CategoryModel category){
-        return categoryRepository.save(category);
+    public CategoryDTO createCategory(CategoryDTO categoryDTO){
+        CategoryModel category = categoryMapper.map(categoryDTO);
+        category = categoryRepository.save(category);
+        return categoryMapper.map(category);
     }
 
     public void deleteCategory(Long id){
         categoryRepository.deleteById(id);
     }
 
-    public CategoryModel updateCategory(Long id, CategoryModel category){
-        if(categoryRepository.existsById(id)){
-            category.setId(id);
-            return categoryRepository.save(category);
+    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO){
+        Optional<CategoryModel> categoryModel = categoryRepository.findById(id);
+        if(categoryModel.isPresent()){
+            CategoryModel categoryUpdate = categoryMapper.map(categoryDTO);
+            categoryUpdate.setId(id);
+            CategoryModel categorySave = categoryRepository.save(categoryUpdate);
+            return categoryMapper.map(categorySave);
         }
         return null;
     }
