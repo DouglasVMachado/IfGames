@@ -18,12 +18,12 @@ public class GamesController {
     }
 
     @GetMapping("/search/{id}")
-    public GamesModel searchById(@PathVariable Long id){
+    public GamesDTO searchById(@PathVariable Long id){
         return gamesService.searchById(id);
     }
 
     @GetMapping("/list")
-    public List<GamesModel> listAllGames(){
+    public List<GamesDTO> listAllGames(){
         return gamesService.listAllGames();
     }
 
@@ -33,7 +33,7 @@ public class GamesController {
     }
 
     @PutMapping("/update/{id}")
-    public GamesModel updateGame(@PathVariable Long id, @RequestBody GamesModel games){
+    public GamesDTO updateGame(@PathVariable Long id, @RequestBody GamesDTO games){
         return gamesService.updateGames(id, games);
     }
 

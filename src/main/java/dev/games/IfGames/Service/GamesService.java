@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GamesService {
@@ -20,13 +21,14 @@ public class GamesService {
         this.gamesMapper = gamesMapper;
     }
 
-    public List<GamesModel> listAllGames(){
-        return gamesRepository.findAll();
+    public List<GamesDTO> listAllGames(){
+        List<GamesModel> games = gamesRepository.findAll();
+        return games.stream().map(gamesMapper::map).collect(Collectors.toList());
     }
 
-    public GamesModel searchById(Long id){
+    public GamesDTO searchById(Long id){
         Optional<GamesModel> gameById = gamesRepository.findById(id);
-        return gameById.orElse(null);
+        return gameById.map(gamesMapper::map).orElse(null);
     }
 
     public GamesDTO insertGames(GamesDTO gamesDTO){
@@ -39,10 +41,13 @@ public class GamesService {
         gamesRepository.deleteById(id);
     }
 
-    public GamesModel updateGames(Long id, GamesModel games){
-        if(gamesRepository.existsById(id)){
-            games.setId(id);
-            return gamesRepository.save(games);
+    public GamesDTO updateGames(Long id, GamesDTO gamesDTO){
+        Optional<GamesModel> gamesModel = gamesRepository.findById(id);
+        if (gamesModel.isPresent()){
+            GamesModel gameAtualizado = gamesMapper.map(gamesDTO);
+            gameAtualizado.setId(id);
+            GamesModel gameSalvo = gamesRepository.save(gameAtualizado);
+            return gamesMapper.map(gameSalvo);
         }
         return null;
     }

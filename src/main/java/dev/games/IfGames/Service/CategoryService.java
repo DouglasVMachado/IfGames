@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -20,13 +21,14 @@ public class CategoryService {
         this.categoryMapper = categoryMapper;
     }
 
-    public List<CategoryModel> listAllCategory(){
-        return categoryRepository.findAll();
+    public List<CategoryDTO> listAllCategory(){
+        List<CategoryModel> categoryModel = categoryRepository.findAll();
+        return categoryModel.stream().map(categoryMapper::map).collect(Collectors.toList());
     }
 
-    public CategoryModel searchCategory(Long id){
+    public CategoryDTO searchCategory(Long id){
         Optional<CategoryModel> categoryModel = categoryRepository.findById(id);
-        return categoryModel.orElse(null);
+        return categoryModel.map(categoryMapper::map).orElse(null);
     }
 
     public CategoryDTO createCategory(CategoryDTO categoryDTO){
@@ -39,10 +41,13 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public CategoryModel updateCategory(Long id, CategoryModel category){
-        if(categoryRepository.existsById(id)){
-            category.setId(id);
-            return categoryRepository.save(category);
+    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO){
+        Optional<CategoryModel> categoryModel = categoryRepository.findById(id);
+        if(categoryModel.isPresent()){
+            CategoryModel categoryUpdate = categoryMapper.map(categoryDTO);
+            categoryUpdate.setId(id);
+            CategoryModel categorySave = categoryRepository.save(categoryUpdate);
+            return categoryMapper.map(categorySave);
         }
         return null;
     }
